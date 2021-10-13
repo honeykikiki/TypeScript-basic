@@ -1,2 +1,2 @@
-const a: number = 1;
 console.log("hello js");
+let a = 1;

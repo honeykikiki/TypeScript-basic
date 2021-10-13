@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noImplicitReturns": true,
+    "strict": true,
+    "allowJs": true,
+    "checkJs": true,
+
+    "lib": ["es2020", "dom"],
+    "target": "es6"
+  },
+  "exclude": ["*.js"]
+}
