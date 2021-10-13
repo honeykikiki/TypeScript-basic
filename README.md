@@ -36,7 +36,7 @@
 
 ### 공식문서 참고하기
 
-<a>https://www.typescriptlang.org/ko/docs/handbook/compiler-options.html</a>
+<a href='https://www.typescriptlang.org/ko/docs/handbook/compiler-options.html'>공식문서</a>
 
 > {
 > "compilerOptions": {
@@ -67,3 +67,153 @@
 
 }
 }
+
+## 타입스크립트 기본 타입
+
+> 1.기본타입
+
+    변수에 타입을 지정해준다.
+
+```JS
+let num: number = 0;
+let str: string = String(num);
+```
+
+> 2.배열
+
+```js
+let arr1: number[] = [1, 2, 3]; // 보편적으로 사용
+let arr2: Array<number> = [1, 2, 3];
+
+let arr3: (string | number | boolean)[] = [true, 2, "3"];
+```
+
+    배열안에 어떤 값이 들어오는지 여러가지 선택할수있다.
+
+---
+
+```js
+let arr4: [boolean, number, string] = [true, 2, "3"]; // tuple
+arr4[2] = "3"; // 가능
+arr4[2] = 3; // 타입 오류
+arr4[3] = 1; // 배열의 수가 정해져 있어서 타입 오류가 작동한다.
+arr4.push(2); // 단 tuple에 push 하는 행위는 막지 못한다.
+console.log(arr4); // (5) [true, 2, 3, 1, 2]
+```
+
+    한가지의 값만 들어오지 않을떄 배열에 정해진 위치에 고정된 값이 들어오게 정해준다 배열의 수고 정해져있다
+
+```js
+let arr5: [boolean, 2, string] = [true, 2, "3"]; // 더 엄격하게 배열 위치에 값을 고정도 가능
+arr5[1] = "s"; // 타입오류
+arr5[1] = 3; // 타입오류
+```
+
+    정해진 값으로 숫자 2 밖에 들어가지 못한다
+
+> 3.  상수
+
+     상수를 만들고 싶을떄 **as const** 를 사용한다
+
+```js
+let arr6 = [true, 2, "3"] as const;
+arr6[0] = false; // 타입오류
+
+const obj1 = { a: "b" } as const;
+obj1.a = "c"; //  as const 를 쓰면 타입 오류가 뜬다
+
+const obj2: object = { a: "b" } as const; // 사용하지않는다
+const obj3: { a: string; b: number } = { a: "b", b: 3 } as const;
+const obj4: { a: string; b?: number } = { a: "b" } as const; // b가 나중에 생기는 경우 ? 옵셔널 체이닝을 사용한다
+
+```
+
+> 4.  enum
+
+```js
+enum Color {
+  Red,
+  Green,
+  Blue,
+}
+let c: Color = Color.Green;
+Color[0] === "Red";
+Color["Red"] === 0;
+```
+
+> 5. 함수
+
+```js
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+function add2(a: number, b: number): void {
+  console.log(a, b);
+} // void는 함수에 return을 넣어주지 않았을떄 리턴 값이다.
+
+function add3(a: number, b: number): (c: string) => number {
+  return (c: string) => {
+    return 3;
+  };
+}
+function add4(a: number, b: number): (c: string) => (d: string) => boolean {
+  return (c: string) => {
+    return (d: string) => {
+      return false;
+    };
+  };
+}
+```
+
+    인자에 들어오는 값 과 리턴값의 타입을 정해준다.
+    return 값이 들어가지 않을떄는 void를 넣어준다
+
+> 6.  객체타입
+
+```js
+const obj5: { a: (b: number, c?: string) => string } = {
+  a(b: number, c?: string) {
+    return "hello";
+  },
+};
+
+obj5.a(); //타입오류 b자리에 값이 들어가지 않아서
+obj5.a(3);
+obj5.a(3, "hello");
+```
+
+    각 객체의 값을 지정해주고
+    정해지지 않은 값은 옵셔널 체이닝으로 보호해준다
+
+> 7.  naver
+
+```js
+const arr7: [] = [];
+arr7.push(3); // 타입을 잘못만든경우 push할떄 에러가 뜬다.
+```
+
+    naver 대부분 배열을 잘못만든경우이다.
+
+> 8.  any
+
+    아무값이나 들어갈수 있다.
+
+```js
+const hi: any = [true, 2, "as"];
+```
+
+> 9.  타입 캐스팅
+
+```js
+const div = document.createElement("div");
+const a = div as HTMLElement; // 상속관계의 타입으로는 변경 가능
+const b = div as number; // 완전히 다른 타입은 불가능
+const d = div as unknown as number; // as unknown을 쓰면 가능
+
+const hello2: number;
+(hello2 as unknown as string).substr(1, 2); // 어쩔수 없을떄 강제로 다른 타입을 바꾸는 방법
+(<string>(<unknown>hello2)).substr(1, 2); // 어쩔수 없을떄 강제로 다른 타입을 바꾸는 방법
+```
+
+## 인터페이스 특성과 type alias
