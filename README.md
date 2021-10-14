@@ -36,7 +36,7 @@
 
 ### 공식문서 참고하기
 
-<a href='https://www.typescriptlang.org/ko/docs/handbook/compiler-options.html'>공식문서</a>
+<a href='https://www.typescriptlang.org/ko/docs/handbook/compiler-options.html' target='blank'>공식문서</a>
 
 > {
 > "compilerOptions": {
@@ -216,4 +216,120 @@ const hello2: number;
 (<string>(<unknown>hello2)).substr(1, 2); // 어쩔수 없을떄 강제로 다른 타입을 바꾸는 방법
 ```
 
-## 인터페이스 특성과 type alias
+## 인터페이스 특성과 type alias 오퍼레이터
+
+> 1.인터페이스
+
+    인터페이스는 타입을 정의한 규칙을 의미합니다.
+
+```js
+interface User {
+  age: number;
+  name: string;
+}
+```
+
+    • 변수와 함수에 활용한 인터페이스
+
+```js
+var person: User = {
+  age: 30,
+  name: "aa",
+};
+
+function getUser(user: User) {
+  console.log(user);
+}
+```
+
+    • 인덱싱
+      타입스크립트에서 배열 요소와 객체의 속성을 접근할 때는 인터페이스를 사용하면 됩니다.
+
+```js
+interface StringArray {
+  [index: number]: string;
+}
+
+var arr2: StringArray = ["a", "b", "c"];
+arr[0] = 10; //Error;
+```
+
+    • 인터페이스 확장
+
+```js
+interface Example {
+  a: 3;
+  b: 7;
+  [key: string]: number;
+}
+
+const example: Example = {
+  a: 3,
+  b: 7,
+};
+```
+
+    • 들어올 타입이 명확하지 않을떄
+
+```js
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface User extends Person {
+  language: string;
+}
+```
+
+> 2.type
+
+    하나의 타입이 아닌 여러가지 타입이 적용될떄 사용
+
+```js
+type RSP = {
+  readonly Hello: "a";
+};
+
+type Hello = string | number; // 다재다능한
+type Hello2 =
+  | {
+      ROCK: string;
+      SCISSORS: string;
+    }
+  | string; // 객체 또는 문자가 들어갈수 있다
+const hi1: Hello2 = "string";
+const hi2: Hello2 = {
+  ROCK: "0",
+  SCISSORS: "-142px",
+};
+```
+
+> 2.오버레이터
+
+    • Union 타입: 자바스크립트의 OR 연산자와 같은 의미의 타입입니다. Union 타입으로 지정하면 각 타입의 공통된(보장된) 속성에만 접근 가능합니다.
+
+```js
+function askSomeone(someone: Developer2 | Person) {
+  console.log(someone);
+}
+```
+
+    • Intersection 타입: 자바스크립트의 AND 연산자와 같은 의미의 타입입니다. 각각의 모든 타입이 포함된 객체를 넘기지 않으면 에러가 발생합니다.
+
+```js
+function askSomeone(someone: Developer & Person) {
+  console.log(someone);
+}
+```
+
+## this와 타입 범위 이해
+
+    this의  타입을 지정해줘야한다
+
+```js
+const button = document.createElement("button");
+button.addEventListener("click", function (this: HTMLButtonElement, e: Event) {
+  const myChoice = this.textContent;
+});
+```
