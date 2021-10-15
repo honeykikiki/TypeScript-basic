@@ -10,7 +10,7 @@
 
 ## 타입스크립트 컴파일
 
-> npm npx 차이 : https://seizemymoment.tistory.com/106
+<!-- > npm npx 차이 : https://seizemymoment.tistory.com/106 -->
 
 > 타입스크립트 컴파일
 
@@ -333,3 +333,5 @@ button.addEventListener("click", function (this: HTMLButtonElement, e: Event) {
   const myChoice = this.textContent;
 });
 ```
+
+## 클래스 / null, undefined / 제네릭
