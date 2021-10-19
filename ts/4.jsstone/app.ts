@@ -1,14 +1,4 @@
-interface Player {
-  hero: HTMLDivElement;
-  deck: HTMLDivElement;
-  field: HTMLDivElement;
-  cost: HTMLDivElement;
-  deckData: Sub[];
-  heroData: Hero | null;
-  fieldData: Sub[];
-  chosenCard: HTMLDivElement | null; // 선택한 카드 DIV
-  chosenCardData: Card | null; // 선택한 카드 data
-}
+import { Card, Player } from "./types";
 
 const opponent: Player = {
   hero: document.getElementById("rival-hero") as HTMLDivElement,
@@ -33,14 +23,6 @@ const me: Player = {
   chosenCard: null,
   chosenCardData: null,
 };
-
-interface Card {
-  att: number;
-  hp: number;
-  mine: boolean;
-  cost?: number;
-  field?: boolean;
-}
 
 class Hero implements Card {
   public att: number;

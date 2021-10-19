@@ -334,4 +334,4 @@ button.addEventListener("click", function (this: HTMLButtonElement, e: Event) {
 });
 ```
 
-## 클래스 / null, undefined / 제네릭
+## 클래스 / null, undefined / 제네릭 / 타입가드
