@@ -5,7 +5,7 @@
     "allowJs": true,
     "checkJs": true,
 
-    "lib": ["DOM", "ES5", "ES6", "ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020"],
+    "lib": ["ES2020"],
     "target": "es6"
   },
   "exclude": ["*.js"]
