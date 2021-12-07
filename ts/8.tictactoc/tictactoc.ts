@@ -5,15 +5,13 @@ let turn: "O" | "X" = "X";
 const result: HTMLDivElement = document.createElement("div");
 let count: number = 0;
 
-function callback(event: MouseEvent) {
+function callback(e: MouseEvent) {
   const rowIndex: number = rows.indexOf(
-    (event.currentTarget as HTMLTableCellElement).parentNode as HTMLTableRowElement
+    (e.currentTarget as HTMLTableCellElement).parentNode as HTMLTableRowElement
   );
-  const cellIndex: number = cells[rowIndex].indexOf(event.currentTarget as HTMLTableCellElement);
-  count++;
-
+  const cellIndex: number = cells[rowIndex].indexOf(e.currentTarget as HTMLTableCellElement);
   if (cells[rowIndex][cellIndex].textContent !== "") {
-    console.log("빈 칸이 아닙니다.");
+    console.log("빈칸이 아닙니다");
   } else {
     cells[rowIndex][cellIndex].textContent = turn;
 
@@ -82,5 +80,6 @@ for (let i: number = 1; i <= 3; i++) {
   }
   table.appendChild(row);
 }
+
 document.body.appendChild(table);
 document.body.appendChild(result);

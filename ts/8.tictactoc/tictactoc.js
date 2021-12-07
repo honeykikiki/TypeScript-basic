@@ -5,12 +5,11 @@ const cells = [];
 let turn = "X";
 const result = document.createElement("div");
 let count = 0;
-function callback(event) {
-    const rowIndex = rows.indexOf(event.currentTarget.parentNode);
-    const cellIndex = cells[rowIndex].indexOf(event.currentTarget);
-    count++;
+function callback(e) {
+    const rowIndex = rows.indexOf(e.currentTarget.parentNode);
+    const cellIndex = cells[rowIndex].indexOf(e.currentTarget);
     if (cells[rowIndex][cellIndex].textContent !== "") {
-        console.log("빈 칸이 아닙니다.");
+        console.log("빈칸이 아닙니다");
     }
     else {
         cells[rowIndex][cellIndex].textContent = turn;
